@@ -1,1 +1,51 @@
 export const deg2rad = (deg) => deg * (Math.PI / 180)
+
+/**
+ * @function
+ *
+ * @desc Returns a random value between two numbers, min and max value included.
+ *
+ * @param {number} min=0
+ * @param {number} max=100
+ * @param {number} decimals=0
+ * @returns {number} Random value
+ */
+export const random = (min = 0, max = 100, decimals = 0) => Math.min(Math.floor(((((max + 1) - min) * Math.random()) + min) * Math.pow(10, decimals)) / Math.pow(10, decimals), max)
+
+/**
+ * @function
+ *
+ * @desc Returns first element in array which matches the given condition.
+ *
+ * @param {array} list
+ * @param {function} predicate
+ * @param {number} [index]
+ * @returns {any}
+ */
+export const find = (list, predicate, index = 0) => {
+  const isDone = index >= list.length
+
+  return isDone
+    ? undefined
+    : predicate(list[index]) ? list[index] : find(list, predicate, ++index)
+}
+
+/**
+ * @function
+ *
+ * @desc Returns index of element in array which matches the given condition.
+ *
+ * @param {array} list
+ * @param {function} predicate
+ * @param {number} [index]
+ * @returns {number}
+ */
+export const findPos = (list, predicate, index = 0) => {
+  const isDone = index >= list.length
+
+  return isDone
+    ? -1
+    : predicate(list[index]) ? index : findPos(list, predicate, ++index)
+}
+
+window.r = random
