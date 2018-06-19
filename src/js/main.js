@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import * as CANNON from 'cannon'
 // import * as dat from 'dat.gui'
 import gltfLoader from './vendor/three/GLTFLoader'
 import orbitControls from './vendor/three/OrbitControls'
