@@ -1,10 +1,11 @@
 import * as THREE from 'three'
-import * as CANNON from 'cannon'
 // import * as dat from 'dat.gui'
 import gltfLoader from './vendor/three/GLTFLoader'
 import orbitControls from './vendor/three/OrbitControls'
 // import config from './config'
 import { find, random, round } from './util/zorro'
+import Game from './modules/game'
+import { WSAEDQUOT } from 'constants';
 
 // Create audiocontext
 window.audiocontext = new AudioContext()
@@ -153,21 +154,68 @@ loader.load('assets/3d_models/soundblock.gltf', (gltf) => {
   // gui.add(soundblocks[3].scale, 'z')
 })
 
-renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
+// renderer.setSize(window.innerWidth, window.innerHeight)
+// document.body.appendChild(renderer.domElement)
 
 // Bind events
-document.addEventListener('pointermove', onPointermove)
-document.addEventListener('pointerdown', onPointerdown)
-window.addEventListener('resize', onResize, false)
+// document.addEventListener('pointermove', onPointermove)
+// document.addEventListener('pointerdown', onPointerdown)
+// window.addEventListener('resize', onResize, false)
 
-const animate = () => {
-  requestAnimationFrame(animate)
-  renderer.render(scene, camera)
-}
+// const animate = () => {
+//   requestAnimationFrame(animate)
+//   renderer.render(scene, camera)
+// }
 
-animate()
+// animate()
 
 // Dev stuff
 // let gui = new dat.GUI()
 // gui.add(camera.position, 'z')
+
+// Game Logic
+Game.init()
+
+const btnSetDifficultyEasy = document.getElementById('btn-difficulty-easy')
+const btnSetDifficultyNormal = document.getElementById('btn-difficulty-normal')
+const btnSetDifficultyHard = document.getElementById('btn-difficulty-hard')
+const btnPlay = document.getElementById('play')
+const lblDifficulty = document.getElementById('lbl-difficulty')
+
+const updateView = () => {
+  switch (Game.getDifficulty()) {
+    case 0:
+      lblDifficulty.innerHTML = 'Easy'
+      break
+      case 1:
+      lblDifficulty.innerHTML = 'Normal'
+      break
+      case 2:
+      lblDifficulty.innerHTML = 'Hard'
+  }
+
+}
+
+btnSetDifficultyEasy.addEventListener('click', () => {
+  Game.setDifficulty(0)
+  updateView()
+})
+
+btnSetDifficultyNormal.addEventListener('click', () => {
+  Game.setDifficulty(1)
+  updateView()
+})
+
+btnSetDifficultyHard.addEventListener('click', () => {
+  Game.setDifficulty(2)
+  updateView()
+})
+
+btnPlay.addEventListener('click', () => {
+  Game.prepareGame()
+  .then(() => {
+    console.log('start game!!')
+  })
+})
+
+updateView()
