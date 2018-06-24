@@ -39,6 +39,7 @@
     "webpack": "^4.11.1"
   },
   "dependencies": {
+    "gsap": "^2.0.1",
     "three": "^0.93.0"
   }
 }
