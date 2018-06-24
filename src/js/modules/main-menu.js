@@ -8,7 +8,7 @@ let scene
 const createTitle = () => new Promise((resolve, reject) => {
   let fontLoader = new THREE.FontLoader()
   let titleText
-  let titleMaterial = new THREE.MeshBasicMaterial()
+  let titleMaterial = new THREE.MeshLambertMaterial()
   let title = new THREE.Mesh()
 
   fontLoader.load('assets/fonts/exo_bold.json', (response) => {
@@ -21,7 +21,7 @@ const createTitle = () => new Promise((resolve, reject) => {
     titleText.computeBoundingBox()
     titleText.computeVertexNormals()
 
-    titleMaterial.color = new THREE.Color(0xff9000)
+    titleMaterial.color = new THREE.Color(0x08A6D8)
 
     title.geometry = titleText
     title.material = titleMaterial

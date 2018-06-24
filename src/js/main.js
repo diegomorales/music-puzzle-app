@@ -17,7 +17,10 @@ window.audiocontext = new AudioContext()
 // Basic Setup
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000)
-// const ambientLight = new THREE.AmbientLight(0x404040, 4)
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+const pointLight = new THREE.PointLight(0xffffff, 0.75, 0)
 // const directionalLight1 = new THREE.DirectionalLight(0xefefff, 0.8)
 // // const directionalLight2 = new THREE.DirectionalLight(0xefefff, 0.2)
 // // const light3 = new THREE.PointLight(0xefefff, 2, 20, 2)
@@ -124,7 +127,8 @@ const onResize = () => {
 // // camera.position.z = 110
 // scene.background = new THREE.Color(0xFFF6D8)
 scene.background = new THREE.Color(0xffffff)
-// scene.add(ambientLight)
+scene.add(ambientLight)
+scene.add(pointLight)
 // scene.add(directionalLight1)
 // // scene.add(light3)
 // // scene.add(directionalLight2)
