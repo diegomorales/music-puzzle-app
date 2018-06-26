@@ -136,32 +136,6 @@ scene.add(pointLight)
 // // scene.add(directionalLight2)
 // scene.add(helperPlane)
 
-// // For Dev
-// // scene.add(helper)
-
-// loader.load('assets/3d_models/soundblock.gltf', (gltf) => {
-//   let soundblockModel = find(gltf.scene.children, (child) => child.name === 'soundblock')
-
-//   // soundblockModel.position.z = -101
-
-//   for (let i = 5; i--;) {
-//     let clone = soundblockModel.clone()
-//     clone.scale.setScalar(0.1)
-//     clone.position.x = -0.9 + (i * 0.3)
-//     clone.position.y = 0
-//     clone.position.z = -1.25
-//     clone.material = new THREE.MeshStandardMaterial({
-//       roughness: 0.9,
-//       color: new THREE.Color(random(0, 1, 4), random(0, 1, 4), random(0, 1, 4))
-//     })
-//     scene.add(clone)
-//     soundblocks.push(clone)
-//   }
-
-//   // gui.add(soundblocks[3].scale, 'x')
-//   // gui.add(soundblocks[3].scale, 'y')
-//   // gui.add(soundblocks[3].scale, 'z')
-// })
 
 renderer.setSize(window.innerWidth, window.innerHeight)
 document.body.appendChild(renderer.domElement)
@@ -177,57 +151,6 @@ const animate = () => {
 }
 
 animate()
-
-// // Dev stuff
-// // let gui = new dat.GUI()
-// // gui.add(camera.position, 'z')
-
-// // Game Logic
-// Game.init()
-
-// const btnSetDifficultyEasy = document.getElementById('btn-difficulty-easy')
-// const btnSetDifficultyNormal = document.getElementById('btn-difficulty-normal')
-// const btnSetDifficultyHard = document.getElementById('btn-difficulty-hard')
-// const btnPlay = document.getElementById('play')
-// const lblDifficulty = document.getElementById('lbl-difficulty')
-
-// const updateView = () => {
-//   switch (Game.getDifficulty()) {
-//     case 0:
-//       lblDifficulty.innerHTML = 'Easy'
-//       break
-//       case 1:
-//       lblDifficulty.innerHTML = 'Normal'
-//       break
-//       case 2:
-//       lblDifficulty.innerHTML = 'Hard'
-//   }
-
-// }
-
-// btnSetDifficultyEasy.addEventListener('click', () => {
-//   Game.setDifficulty(0)
-//   updateView()
-// })
-
-// btnSetDifficultyNormal.addEventListener('click', () => {
-//   Game.setDifficulty(1)
-//   updateView()
-// })
-
-// btnSetDifficultyHard.addEventListener('click', () => {
-//   Game.setDifficulty(2)
-//   updateView()
-// })
-
-// btnPlay.addEventListener('click', () => {
-//   Game.prepareGame()
-//   .then(() => {
-//     console.log('start game!!')
-//   })
-// })
-
-// updateView()
 
 MainMenu.init(scene, camera)
 Game.init(scene, camera)

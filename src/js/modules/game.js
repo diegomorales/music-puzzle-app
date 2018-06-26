@@ -1,10 +1,12 @@
 import * as THREE from 'three'
 import soundblock from '../components/soundblock'
+import dragControl from '../components/drag-control'
 import {shuffle, compose} from '../util/zorro'
 
 const instance = {}
 let scene
 let camera
+let blocksDragControl
 
 // for testing
 let blockCount = 5
@@ -38,9 +40,23 @@ const positionSoundblocks = (blocks) => {
     blocks[i].position.x = -(offset * (2 * gridSize)) + (i * (2 * gridSize))
   }
 
-  console.log(blocks)
-
   return blocks
+}
+
+const run = () => {
+  // Enable dragging
+  blocksDragControl = dragControl(scene, camera, soundblocks.children)
+  blocksDragControl.on('grabelement', (block) => {
+    console.log(block)
+  })
+
+  blocksDragControl.on('releaselement', (block) => {
+    console.log(block)
+  })
+
+  blocksDragControl.on('hoverelement', (block) => {
+    console.log(block)
+  })
 }
 
 const start = () => {
@@ -66,6 +82,8 @@ const start = () => {
         })
 
       scene.add(soundblocks)
+
+      run()
     })
 }
 
