@@ -1,5 +1,7 @@
 import * as THREE from 'three'
+import Game from './modules/game'
 import MainMenu from './modules/main-menu'
+import pubsub from './modules/pubsub'
 // // import * as dat from 'dat.gui'
 // import gltfLoader from './vendor/three/GLTFLoader'
 // import orbitControls from './vendor/three/OrbitControls'
@@ -126,7 +128,7 @@ const onResize = () => {
 // helperPlane.position.z = -1.25
 // // camera.position.z = 110
 // scene.background = new THREE.Color(0xFFF6D8)
-scene.background = new THREE.Color(0xFFFDFC)
+scene.background = new THREE.Color(0xffffff)
 scene.add(ambientLight)
 scene.add(pointLight)
 // scene.add(directionalLight1)
@@ -227,4 +229,10 @@ animate()
 
 // updateView()
 
-MainMenu.init(scene)
+MainMenu.init(scene, camera)
+Game.init(scene, camera)
+
+// Subscriptions
+pubsub.on('mainMenu.play', () => {
+  Game.start()
+})

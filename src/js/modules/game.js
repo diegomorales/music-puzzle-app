@@ -1,34 +1,12 @@
-import difficulties from './difficulties'
-import categories from './categories'
-import genres from './genres'
-
-const defaults = {
-  difficulty: difficulties.EASY,
-  category: categories.SEQUENCE,
-  genre: genres.POP
-}
-
 const instance = {}
-let settings
 
-instance.init = (options) => {
-  settings = Object.assign({}, defaults, options)
+const start = () => {
+  console.log('start!!!!')
 }
 
-instance.setDifficulty = (difficulty) => {
-  settings.difficulty = difficulty
-}
+instance.init = () => {}
 
-instance.getDifficulty = () => settings.difficulty
-
-instance.setCategory = (category) => {
-  settings.category = category
-}
-
-instance.getCategory = () => settings.category
-
-instance.prepareGame = () => new Promise((resolve, reject) => {
-  resolve()
-})
+// Public methods
+instance.start = start
 
 export default instance
