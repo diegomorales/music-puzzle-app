@@ -1,7 +1,7 @@
 {
   "name": "music-puzzle-app",
-  "version": "1.0.0",
-  "description": "a music puzzle app.",
+  "version": "0.0.1",
+  "description": "a music puzzle app",
   "scripts": {
     "start": "gulp",
     "build": "npm install && gulp build"
