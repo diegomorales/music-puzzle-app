@@ -102,7 +102,6 @@ const onPointerdown = (e) => {
 
   for (let i = intersects.length; i--;) {
     if (intersects[i].object.name === 'btnPlay') {
-
       // Animate button
       throwOut(btnPlay)
         .then(() => hide())

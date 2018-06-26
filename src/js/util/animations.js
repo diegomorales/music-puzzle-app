@@ -1,4 +1,4 @@
-import { TweenLite, TimelineLite, Power3, Back } from 'gsap/TweenMax'
+import {TimelineLite, Power3} from 'gsap/TweenMax'
 
 const iterate = (group, fn) => {
   group.children.forEach((child) => {
@@ -19,8 +19,8 @@ export const throwOut = (group, options = {}) => new Promise((resolve, reject) =
   })
 
   iterate(group, (child) => {
-    tl.to(child.rotation, 0.5, {x: child.rotation.x - 1, ease: Power3.easeInOut,}, 0)
-    tl.to(child.material, 0.5, {opacity: 0, ease: Power3.easeInOut,}, 0)
+    tl.to(child.rotation, 0.5, {x: child.rotation.x - 1, ease: Power3.easeInOut}, 0)
+    tl.to(child.material, 0.5, {opacity: 0, ease: Power3.easeInOut}, 0)
   })
 
   tl.play()
