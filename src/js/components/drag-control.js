@@ -8,7 +8,7 @@ export default (scene, camera, blocks) => {
   const mouse = new THREE.Vector2()
   const offset = new THREE.Vector3()
   const helperPlane = new THREE.Mesh(new THREE.PlaneBufferGeometry(100, 100, 8, 8), new THREE.MeshBasicMaterial({
-    color: 0xff0000,
+    color: 0x000000,
     transparent: true,
     opacity: 0
   }))

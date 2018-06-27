@@ -159,3 +159,73 @@ Game.init(scene, camera)
 pubsub.on('mainMenu.play', () => {
   Game.start()
 })
+
+for (let i = -10; i < 10; i++) {
+  let material = new THREE.LineBasicMaterial({
+    color: 0xeeeeee,
+    transparent: false,
+    opacity: 0.4
+    // lights: true
+  });
+
+  let geometry = new THREE.Geometry();
+  geometry.vertices.push(
+    new THREE.Vector3( i * (2 * 0.075), -0.075, -1 ),
+    new THREE.Vector3( i * (2 * 0.075), -0.075, -2000 )
+  );
+
+  let line = new THREE.Line( geometry, material );
+  scene.add( line );
+}
+
+// for (let i = -10; i < 10; i++) {
+//   let material = new THREE.LineBasicMaterial({
+//     color: 0xeeeeee,
+//     transparent: false,
+//     opacity: 0.4
+//     // lights: true
+//   });
+
+//   let geometry = new THREE.Geometry();
+//   geometry.vertices.push(
+//     new THREE.Vector3( i * (2 * 0.075), 0.075, -1 ),
+//     new THREE.Vector3( i * (2 * 0.075), 0.075, -2000 )
+//   );
+
+//   let line = new THREE.Line( geometry, material );
+//   scene.add( line );
+// }
+
+for (let i = -10; i < 10; i++) {
+  let material = new THREE.LineBasicMaterial({
+    color: 0xeeeeee,
+    transparent: false,
+    opacity: 0.4
+  });
+
+  let geometry = new THREE.Geometry();
+  geometry.vertices.push(
+    new THREE.Vector3( i * (2 * 0.075), -10, -1.25 ),
+    new THREE.Vector3( i * (2 * 0.075), 10, -1.25 )
+  );
+
+  let line = new THREE.Line( geometry, material );
+  scene.add( line );
+}
+
+for (let i = -10; i < 10; i++) {
+  let material = new THREE.LineBasicMaterial({
+    color: 0xf5f5f5,
+    transparent: false,
+    opacity: 0.4
+  });
+
+  let geometry = new THREE.Geometry();
+  geometry.vertices.push(
+    new THREE.Vector3( i * (2 * 0.075), -10, -1.75 ),
+    new THREE.Vector3( i * (2 * 0.075), 10, -1.75 )
+  );
+
+  let line = new THREE.Line( geometry, material );
+  scene.add( line );
+}
