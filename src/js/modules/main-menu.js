@@ -36,7 +36,8 @@ const createTitle = () => new Promise((resolve, reject) => {
 
     // Center and position text
     title.position.x = -0.5 * (titleText.boundingBox.max.x - titleText.boundingBox.min.x)
-    title.position.y = 0.4
+    title.position.y = 1.1
+    title.position.z = -1
 
     resolve(title)
   })
