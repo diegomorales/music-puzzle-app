@@ -188,9 +188,6 @@ function intersectObjects( controller ) {
     object.material.emissive.g = 0;
     object.material.emissive.b = 1;
     intersected.push( object );
-
-    console.log('+++ intersectObjects !!!', object)
-
     line.scale.z = intersection.distance;
   } else {
     line.scale.z = 5;
