@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import appSettings from '../app-settings'
 import gameConfigs from '../game-configs'
 import soundblock from './soundblock'
@@ -22,6 +23,10 @@ export default (options = {}) => {
   let initSoundblocks
   let subscriptions = []
   let sprite
+  let trackWireframe
+  let trackGeometry
+  let trackMaterial
+  let track
 
   // Private methods
   const prepareSoundblocks = (blocks) => {
@@ -48,7 +53,7 @@ export default (options = {}) => {
 
   const snapToGrid = (object) => {
     object.position.x = toGrid(object.position.x, settings.game.gridSize)
-    object.position.y = toGrid(object.position.y, settings.game.gridSize)
+    object.position.y = toGrid(object.position.y, settings.game.gridSize, appSettings.perceivedCenterY % settings.game.gridSize)
     object.position.z = appSettings.mainZ
     object.rotation.x = 0
     object.rotation.y = 0
@@ -57,6 +62,23 @@ export default (options = {}) => {
 
   const playSoundblock = (object) => {
     sprite.play(Number(object.spriteIndex))
+  }
+
+  const addTrack = () => {
+    trackGeometry = new THREE.BoxBufferGeometry(settings.game.count * settings.game.gridSize, settings.game.gridSize, settings.game.gridSize)
+    trackWireframe = new THREE.EdgesGeometry(trackGeometry)
+    trackMaterial = new THREE.LineBasicMaterial({
+      color: 0x999999
+    })
+
+    track = new THREE.LineSegments(trackWireframe, trackMaterial)
+
+    // Position track
+    // track.position.x = -((settings.game.count -1) * (2 * settings.game.gridSize))
+    track.position.x = 0
+    track.position.y = appSettings.perceivedCenterY + (2 * settings.game.gridSize)
+    track.position.z = appSettings.mainZ
+    global.scene.add(track)
   }
 
   const run = () => {
@@ -97,6 +119,7 @@ export default (options = {}) => {
         global.selectables.add(block)
       })
 
+      addTrack()
       run()
     })
 

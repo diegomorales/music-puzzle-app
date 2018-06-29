@@ -13,7 +13,7 @@ export default (options) => new Promise((resolve, reject) => {
     let model = find(gltf.scene.children, (child) => child.name === 'soundblock')
 
     model.scale.setScalar(options.gridSize / 2)
-    model.position.y = 1.25
+    model.position.y = appSetings.perceivedCenterY
     model.position.z = appSetings.mainZ
     model.material = new THREE.MeshStandardMaterial({
       roughness: 0.9,

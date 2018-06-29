@@ -51,7 +51,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       resolve(instance)
     })
 
-    audio.src = 'http://mp-assets-dev.diegomorales.ch/test-song.wav'
+    audio.src = 'http://mp-assets-dev.diegomorales.ch/test-song2.wav'
   }
 
   instance.type = 'audioSprite'

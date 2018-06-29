@@ -73,7 +73,7 @@ export const shuffle = (arr) => {
 
 export const compose = (...functions) => data => functions.reduceRight((value, func) => func(value), data)
 
-export const toGrid = (value, gridSize) => Math.round(value / gridSize) * gridSize
+export const toGrid = (value, gridSize, offset = 0) => (Math.round((value - offset) / gridSize) * gridSize) + offset
 
 /**
  *
