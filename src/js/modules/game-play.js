@@ -1,10 +1,13 @@
 import vrLayer from '../components/vr-layer'
 import vrButton from '../components/vr-button'
 import vrText from '../components/vr-text'
+import game from '../components/game'
+import pubsub from './pubsub'
 
 const instance = {}
 
 // Private vars
+let intro
 
 // Private methods
 const buildIntro = () => new Promise((resolve, reject) => {
@@ -18,7 +21,8 @@ const buildIntro = () => new Promise((resolve, reject) => {
       introLayer.addToLayer(title)
 
       return vrButton({
-        text: 'PLAY!'
+        text: 'PLAY!',
+        id: 'play'
       })
     })
     .then((button) => {
@@ -29,12 +33,29 @@ const buildIntro = () => new Promise((resolve, reject) => {
     })
 })
 
+const startGame = () => {
+  intro.hide()
+  game()
+}
+
+const onClickObject = (object) => {
+  if (object.hasOwnProperty('buttonId')) {
+    if (object.buttonId === 'play') {
+      startGame()
+    }
+  }
+}
+
 // Public methods
 instance.init = (options = {}) => {
-  Promise.all([buildIntro()])
-    .then((objects) => {
-      objects[0].show()
+  buildIntro()
+    .then((object) => {
+      intro = object
+      intro.show()
     })
+
+  // Subscriptions
+  pubsub.on('vrcontroller.clickobject', onClickObject)
 
   return instance
 }
