@@ -34,6 +34,14 @@ for (let i = 0; i < 50; i++) {
   global.selectables.add(object)
 }
 
+pubsub.on('vrcontroller.grabobject', (obj) => {
+  obj.scale.setScalar(1.2)
+})
+
 pubsub.on('vrcontroller.releaseobject', (obj) => {
-  obj.rotation.y += 0.2
+  obj.rotation.y += 0.3
+})
+
+pubsub.on('vrcontroller.clickobject', (obj) => {
+  obj.position.y += 0.3
 })
