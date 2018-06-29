@@ -31,6 +31,7 @@ for (let i = 0; i < 50; i++) {
   object.scale.setScalar(Math.random() + 0.5)
   object.castShadow = true
   object.receiveShadow = true
+  object.isDraggable = i % 2 === 0 ? true : false
   global.selectables.add(object)
 }
 

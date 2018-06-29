@@ -52,20 +52,24 @@ const onSelectStart = (e) => {
     let intersection = intersections[0]
     let object = intersection.object
 
-    tempMatrix.getInverse(controller.matrixWorld)
-    object.matrix.premultiply(tempMatrix)
-    object.matrix.decompose(object.position, object.quaternion, object.scale)
+    if (object.isDraggable) {
+      tempMatrix.getInverse(controller.matrixWorld)
+      object.matrix.premultiply(tempMatrix)
+      object.matrix.decompose(object.position, object.quaternion, object.scale)
 
-    // 'Hover' effect
-    object.material.emissive.r = 1
-    object.material.emissive.g = 1
-    object.material.emissive.b = 1
+      // 'Hover' effect
+      object.material.emissive.r = 1
+      object.material.emissive.g = 1
+      object.material.emissive.b = 1
 
-    controller.add(object)
-    controller.userData.selected = object
+      controller.add(object)
+      controller.userData.selected = object
 
-    clickTimer = performance.now()
-    pubsub.trigger('vrcontroller.grabobject', object)
+      clickTimer = performance.now()
+      pubsub.trigger('vrcontroller.grabobject', object)
+    } else {
+      pubsub.trigger('vrcontroller.clickobject', object)
+    }
   }
 }
 const onSelectEnd = (e) => {
