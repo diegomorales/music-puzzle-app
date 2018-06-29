@@ -1,9 +1,10 @@
 import appSettings from '../app-settings'
 import gameConfigs from '../game-configs'
 import soundblock from './soundblock'
+import audioSprite from './audio-sprite'
 import global from '../modules/global'
 import pubsub from '../modules/pubsub'
-import { shuffle, compose, toGrid } from '../util/zorro'
+import { find, shuffle, compose, toGrid } from '../util/zorro'
 
 const defaults = {
   difficulty: 'easy',
@@ -20,6 +21,7 @@ export default (options = {}) => {
   let promises = []
   let initSoundblocks
   let subscriptions = []
+  let sound
 
   // Private methods
   const prepareSoundblocks = (blocks) => {
@@ -53,12 +55,14 @@ export default (options = {}) => {
     object.rotation.z = 0
   }
 
-  const playSoundblock = () => { }
+  const playSoundblock = () => {
+
+  }
 
   const run = () => {
     subscriptions = [
-      pubsub.on('vrcontroller.releaseobject', snapToGrid)
-      // pubsub.on('vrcontroller.clickobject', playSoundblock)
+      pubsub.on('vrcontroller.releaseobject', snapToGrid),
+      pubsub.on('vrcontroller.clickobject', playSoundblock)
     ]
   }
 
@@ -76,12 +80,16 @@ export default (options = {}) => {
     }))
   }
 
+  promises.push(audioSprite())
+
+  // Helper function
   initSoundblocks = compose(positionSoundblocks, prepareSoundblocks)
 
   // Show soundblocks
   Promise.all(promises)
     .then((items) => {
-      soundblocks = initSoundblocks(items)
+      sound = find(items, (item) => item.type === 'audioSprite')
+      soundblocks = initSoundblocks(items.filter((item) => item.name === 'soundblock'))
 
       soundblocks.forEach((block) => {
         global.selectables.add(block)
