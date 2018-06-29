@@ -82,13 +82,6 @@ const onSelectEnd = (e) => {
     object.material.emissive.g = 0
     object.material.emissive.b = 0
 
-    // Snap should not happen here
-    // object.position.x = round(object.position.x, 1)
-    // object.position.y = round(object.position.y, 1)
-    // object.position.z = -1.25
-    // object.rotation.x = 0
-    // object.rotation.y = 0
-    // object.rotation.z = 0
     selectables.add(object)
 
     if (performance.now() - clickTimer <= settings.clickTimeout) {

@@ -73,4 +73,4 @@ export const shuffle = (arr) => {
 
 export const compose = (...functions) => data => functions.reduceRight((value, func) => func(value), data)
 
-window.r = random
+export const toGrid = (value, gridSize) => Math.round(value / gridSize) * gridSize
