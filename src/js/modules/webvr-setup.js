@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 import WEBVR from '../vendor/three/WebVR'
 import global from './global'
+import pubsub from './pubsub'
 
 const defaults = {}
 const instance = {}
 
 // Private vars
-let settings
 let camera
 let scene
 let renderer
@@ -79,6 +79,7 @@ const onSelectEnd = (e) => {
     // object.rotation.y = 0
     // object.rotation.z = 0
     selectables.add(object)
+    pubsub.trigger('vrcontroller.releaseobject', object)
     controller.userData.selected = undefined
   }
 }
@@ -151,7 +152,6 @@ const setupController = () => {
 }
 
 instance.init = (options = {}) => {
-  settings = Object.assign({}, defaults, options)
   scene = new THREE.Scene()
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000)
   renderer = new THREE.WebGLRenderer({ antialias: true })

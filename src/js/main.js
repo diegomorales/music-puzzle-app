@@ -2,6 +2,7 @@ import WebVRSetup from './modules/webvr-setup'
 
 import * as THREE from 'three'
 import global from './modules/global'
+import pubsub from './modules/pubsub'
 
 WebVRSetup.init()
 
@@ -32,3 +33,7 @@ for (let i = 0; i < 50; i++) {
   object.receiveShadow = true
   global.selectables.add(object)
 }
+
+pubsub.on('vrcontroller.releaseobject', (obj) => {
+  obj.rotation.y += 0.2
+})
