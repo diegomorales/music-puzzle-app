@@ -21,13 +21,13 @@ export default (options = {}) => {
   let promises = []
   let initSoundblocks
   let subscriptions = []
-  let sound
+  let sprite
 
   // Private methods
   const prepareSoundblocks = (blocks) => {
     // Give each block an index
     for (let i = 0; i < blocks.length; i++) {
-      blocks[i]._mp_index = i
+      blocks[i].spriteIndex = i
       blocks[i].isDraggable = true
     }
 
@@ -55,8 +55,8 @@ export default (options = {}) => {
     object.rotation.z = 0
   }
 
-  const playSoundblock = () => {
-
+  const playSoundblock = (object) => {
+    sprite.play(Number(object.spriteIndex))
   }
 
   const run = () => {
@@ -80,7 +80,9 @@ export default (options = {}) => {
     }))
   }
 
-  promises.push(audioSprite())
+  promises.push(audioSprite({
+    sections: settings.game.count
+  }))
 
   // Helper function
   initSoundblocks = compose(positionSoundblocks, prepareSoundblocks)
@@ -88,7 +90,7 @@ export default (options = {}) => {
   // Show soundblocks
   Promise.all(promises)
     .then((items) => {
-      sound = find(items, (item) => item.type === 'audioSprite')
+      sprite = find(items, (item) => item.type === 'audioSprite')
       soundblocks = initSoundblocks(items.filter((item) => item.name === 'soundblock'))
 
       soundblocks.forEach((block) => {
