@@ -81,10 +81,23 @@ export default (options = {}) => {
     global.scene.add(track)
   }
 
+  const handleButtonClick = () => {}
+
+  const onClickObject = (object) => {
+    if (object.name === 'soundblock') {
+      playSoundblock(object)
+      return
+    }
+
+    if (object.name === 'button') {
+      handleButtonClick()
+    }
+  }
+
   const run = () => {
     subscriptions = [
       pubsub.on('vrcontroller.releaseobject', snapToGrid),
-      pubsub.on('vrcontroller.clickobject', playSoundblock)
+      pubsub.on('vrcontroller.clickobject', onClickObject)
     ]
   }
 
