@@ -42,6 +42,10 @@ export default (options = {}) => new Promise((resolve, reject) => {
     })
   }
 
+  const stop = () => {
+    audio.pause()
+  }
+
   const load = () => {
     audio = new Audio()
 
@@ -58,6 +62,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
 
   instance.type = 'audioSprite'
   instance.play = play
+  instance.stop = stop
 
   load()
 })

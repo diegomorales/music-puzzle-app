@@ -3,6 +3,9 @@ import appSettings from '../app-settings'
 import gameConfigs from '../game-configs'
 import soundblock from './soundblock'
 import audioSprite from './audio-sprite'
+import vrLayer from '../components/vr-layer'
+import vrButton from '../components/vr-button'
+import vrText from '../components/vr-text'
 import global from '../modules/global'
 import pubsub from '../modules/pubsub'
 import { find, shuffle, compose, toGrid } from '../util/zorro'
@@ -29,6 +32,7 @@ export default (options = {}) => {
   let trackGeometry
   let trackMaterial
   let track
+  let winLayer
 
   // Private methods
   const prepareSoundblocks = (blocks) => {
@@ -80,24 +84,23 @@ export default (options = {}) => {
       intersections = uniqBy(intersections, (i) => i.object.spriteIndex)
 
       if (intersections.length < settings.game.count) {
-        global.scene.background = new THREE.Color(0x00ffff)
         return
       }
 
       for (let i = 0; i < intersections.length; i++) {
         if (Number(intersections[i].object.spriteIndex) !== i) {
           // Order is not correct. stop
-          global.scene.background = new THREE.Color(0xff00ff)
           return
         }
       }
 
       // Order is correct!!
       // Play entire clip
-      global.scene.background = new THREE.Color(0x00ff00)
+      global.scene.background = new THREE.Color(0xe3ffe3)
       // global.selectables.remove(...soundblocks)
       // global.scene.add(...soundblocks)
       sprite.play()
+      winLayer.show()
     })
   }
 
@@ -117,7 +120,11 @@ export default (options = {}) => {
     global.scene.add(track)
   }
 
-  const handleButtonClick = () => { }
+  const handleButtonClick = (object) => {
+    if (object.buttonId === 'newgame') {
+      instance.destroy()
+    }
+  }
 
   const onClickObject = (object) => {
     if (object.name === 'soundblock') {
@@ -126,7 +133,7 @@ export default (options = {}) => {
     }
 
     if (object.name === 'button') {
-      handleButtonClick()
+      handleButtonClick(object)
     }
   }
 
@@ -142,6 +149,14 @@ export default (options = {}) => {
     for (let i = subscriptions.length; i--;) {
       pubsub.off(subscriptions[i])
     }
+
+    sprite.stop()
+    winLayer.hide()
+    global.scene.remove(track)
+    global.selectables.remove(...soundblocks)
+    setTimeout(() => {
+      pubsub.trigger('game.newgame')
+    }, 100)
   }
 
   // Create as many soundblocks as defined in current game settings.
@@ -170,6 +185,22 @@ export default (options = {}) => {
 
       addTrack()
       run()
+    })
+
+  // Win message
+  winLayer = vrLayer()
+  vrText({text: 'You solved it!'})
+    .then((text) => {
+      text.position.y += 0.55
+      winLayer.addToLayer(text)
+
+      return vrButton({
+        text: 'New Game',
+        id: 'newgame'
+      })
+    })
+    .then((button) => {
+      winLayer.addToLayerSelectable(button)
     })
 
   return instance

@@ -8,6 +8,7 @@ const instance = {}
 
 // Private vars
 let intro
+let currentGame
 
 // Private methods
 const buildIntro = () => new Promise((resolve, reject) => {
@@ -43,6 +44,11 @@ const onClickObject = (object) => {
     if (object.buttonId === 'play') {
       startGame()
     }
+
+    // if (object.buttonId === 'newgame') {
+    //   currentGame.destroy()
+    //   startGame()
+    // }
   }
 }
 
@@ -56,6 +62,9 @@ instance.init = (options = {}) => {
 
   // Subscriptions
   pubsub.on('vrcontroller.clickobject', onClickObject)
+  pubsub.on('game.newgame', () => {
+    startGame()
+  })
 
   return instance
 }

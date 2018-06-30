@@ -6,8 +6,6 @@ import { find, random } from '../util/zorro'
 gltfLoader(THREE)
 const loader = new THREE.GLTFLoader()
 
-// const defaults = {}
-
 export default (options) => new Promise((resolve, reject) => {
   loader.load('assets/3d_models/soundblock.gltf', (gltf) => {
     let model = find(gltf.scene.children, (child) => child.name === 'soundblock')
@@ -17,7 +15,7 @@ export default (options) => new Promise((resolve, reject) => {
     model.position.z = appSetings.mainZ
     model.material = new THREE.MeshStandardMaterial({
       roughness: 0.9,
-      color: new THREE.Color(random(0, 1, 4), random(0, 1, 4), random(0, 1, 4))
+      color: new THREE.Color(random(0.2, 1, 2), random(0.2, 1, 2), random(0.2, 1, 2))
     })
 
     resolve(model)
