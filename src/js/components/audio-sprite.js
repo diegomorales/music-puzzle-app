@@ -1,8 +1,18 @@
-import {once} from '../util/zorro'
+import {once, random} from '../util/zorro'
 
 const defaults = {
   sections: 5
 }
+
+let assetsUrl
+
+/* @if NODE_ENV='development' */
+assetsUrl = 'http://mp-assets-dev.diegomorales.ch/'
+/* @endif */
+
+/* @if NODE_ENV='production' */
+assetsUrl = 'http://mp-assets.diegomorales.ch/'
+/* @endif */
 
 export default (options = {}) => new Promise((resolve, reject) => {
   const instance = {}
@@ -57,7 +67,7 @@ export default (options = {}) => new Promise((resolve, reject) => {
       resolve(instance)
     })
 
-    audio.src = 'http://mp-assets-dev.diegomorales.ch/test-song2.wav'
+    audio.src = assetsUrl + 'clip_0' + random(1, 7, 0) + '.wav'
   }
 
   instance.type = 'audioSprite'
