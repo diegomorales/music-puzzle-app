@@ -7,6 +7,8 @@ import global from '../modules/global'
 import pubsub from '../modules/pubsub'
 import { find, shuffle, compose, toGrid } from '../util/zorro'
 
+import uniqBy from 'lodash/uniqBy'
+
 const defaults = {
   difficulty: 'easy',
   category: 'sequence'
@@ -58,10 +60,45 @@ export default (options = {}) => {
     object.rotation.x = 0
     object.rotation.y = 0
     object.rotation.z = 0
+
+    requestAnimationFrame(checkResult)
   }
 
   const playSoundblock = (object) => {
     sprite.play(Number(object.spriteIndex))
+  }
+
+  const checkResult = () => {
+    let origin = new THREE.Vector3(-0.5, appSettings.perceivedCenterY + (2 * settings.game.gridSize), appSettings.mainZ + 0.02)
+    let direction = new THREE.Vector3(1, 0, 0)
+    let ray = new THREE.Raycaster(origin, direction.normalize())
+
+    requestAnimationFrame(() => {
+      let intersections = ray.intersectObjects(global.selectables.children)
+
+      // get only soundblocks
+      intersections = uniqBy(intersections, (i) => i.object.spriteIndex)
+
+      if (intersections.length < settings.game.count) {
+        global.scene.background = new THREE.Color(0x00ffff)
+        return
+      }
+
+      for (let i = 0; i < intersections.length; i++) {
+        if (Number(intersections[i].object.spriteIndex) !== i) {
+          // Order is not correct. stop
+          global.scene.background = new THREE.Color(0xff00ff)
+          return
+        }
+      }
+
+      // Order is correct!!
+      // Play entire clip
+      global.scene.background = new THREE.Color(0x00ff00)
+      // global.selectables.remove(...soundblocks)
+      // global.scene.add(...soundblocks)
+      sprite.play()
+    })
   }
 
   const addTrack = () => {
@@ -74,14 +111,13 @@ export default (options = {}) => {
     track = new THREE.LineSegments(trackWireframe, trackMaterial)
 
     // Position track
-    // track.position.x = -((settings.game.count -1) * (2 * settings.game.gridSize))
     track.position.x = 0
     track.position.y = appSettings.perceivedCenterY + (2 * settings.game.gridSize)
     track.position.z = appSettings.mainZ
     global.scene.add(track)
   }
 
-  const handleButtonClick = () => {}
+  const handleButtonClick = () => { }
 
   const onClickObject = (object) => {
     if (object.name === 'soundblock') {

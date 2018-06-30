@@ -28,16 +28,18 @@ export default (options = {}) => new Promise((resolve, reject) => {
   const play = (section) => {
     audio.pause()
 
-    if (section === undefined || isNaN(section)) {
-      // Play entire audio
-      audio.currentTime = 0
-      audio.play()
-    } else {
-      // Play section
-      audio.currentTime = section * sectionDuration
-      audio.play()
-      checkPlayProgress((section * sectionDuration) + sectionDuration)
-    }
+    requestAnimationFrame(() => {
+      if (section === undefined || isNaN(section)) {
+        // Play entire audio
+        audio.currentTime = 0
+        audio.play()
+      } else {
+        // Play section
+        audio.currentTime = section * sectionDuration
+        audio.play()
+        checkPlayProgress((section * sectionDuration) + sectionDuration)
+      }
+    })
   }
 
   const load = () => {

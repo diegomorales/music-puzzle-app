@@ -4,7 +4,7 @@ import global from './global'
 import pubsub from './pubsub'
 
 const defaults = {
-  clickTimeout: 300 // ms
+  clickTimeout: 200 // ms
 }
 const instance = {}
 

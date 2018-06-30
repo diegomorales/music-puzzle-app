@@ -1,12 +1,14 @@
 import WebVRSetup from './modules/webvr-setup'
 import GamePlay from './modules/game-play'
-// import game from './components/game'
+import game from './components/game'
 // import vrButton from './components/vr-button'
 // import vrText from './components/vr-text'
 // import global from './modules/global'
 
 WebVRSetup.init()
-GamePlay.init()
+// GamePlay.init()
+
+game()
 
 // game()
 // vrButton({
