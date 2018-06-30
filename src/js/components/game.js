@@ -154,6 +154,7 @@ export default (options = {}) => {
     winLayer.hide()
     global.scene.remove(track)
     global.selectables.remove(...soundblocks)
+    global.scene.background = new THREE.Color(0xffffff)
     setTimeout(() => {
       pubsub.trigger('game.newgame')
     }, 100)
