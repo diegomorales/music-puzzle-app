@@ -1,19 +1,14 @@
-# Simple Frontend Setup
+# Music Puzzle
 
-An opinionated setup for creating very basic projects or onepagers.
+I started this game as a project for my graduation (CAS).
+It's a simple game where you have to put sounblocks in correct order.
+As an additional challenge for myself i developed it with WebVR.
 
-You can use this setup as a starting point for your site.  
+This project is still a work in progress and by far not finished.
+It will mainly serve me as a plattform for experimenting and testing out ideas in WebVR. And obviously for learning to develop for VR.
 
-## Features
+Suggestions and feedback are of course very welcome.
 
-- Setup runs in an docker image.
-- Uses gulp and webpack
-- ES6 (babel)
-- Sass
-- Eslint with [standardJs](https://standardjs.com/)
-- Stylelint
-- browser-sync
-- Build task
 
 ## Getting started
 
