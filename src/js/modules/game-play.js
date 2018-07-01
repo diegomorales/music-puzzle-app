@@ -8,7 +8,6 @@ const instance = {}
 
 // Private vars
 let intro
-let currentGame
 
 // Private methods
 const buildIntro = () => new Promise((resolve, reject) => {
